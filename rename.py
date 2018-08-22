@@ -21,7 +21,7 @@ def main():
 
         for i in range(len(op.input)):
             if op.input[i] in names:
-                op.input[i] = op.input[i]
+                op.input[i] = names[op.input[i]]
             else:
                 op.input[i] = 'Input_{}'.format(op_counts['Input'])
                 op_counts['Input'] += 1
