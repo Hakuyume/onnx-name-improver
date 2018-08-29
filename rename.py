@@ -43,8 +43,7 @@ def main():
             op.output[i] = names[op.output[i]]
 
     for v in (*model.graph.input, *model.graph.output):
-        if v.name in names:
-            v.name = names[v.name]
+        v.name = names[v.name]
 
     onnx.save(model, args.dest)
 
