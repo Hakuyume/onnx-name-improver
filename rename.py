@@ -27,8 +27,7 @@ def main():
                 op_counts['Input'] += 1
                 if args.verbose:
                     print(
-                        'rename "{}" -> "{}"'.format(
-                            op.input[i], names[op.input[i]]),
+                        '"{}" -> "{}"'.format(op.input[i], names[op.input[i]]),
                         file=sys.stderr)
             op.input[i] = names[op.input[i]]
 
@@ -39,8 +38,7 @@ def main():
                 names[op.output[i]] = '{}_{}'.format(op_name, i)
             if args.verbose:
                 print(
-                    'rename "{}" -> "{}"'.format(
-                        op.output[i], names[op.output[i]]),
+                    '"{}" -> "{}"'.format(op.output[i], names[op.output[i]]),
                     file=sys.stderr)
             op.output[i] = names[op.output[i]]
 
