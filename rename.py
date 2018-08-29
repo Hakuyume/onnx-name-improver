@@ -1,11 +1,13 @@
 import argparse
 from collections import defaultdict
+import sys
 
 import onnx
 
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--verbose', action='store_true')
     parser.add_argument('src')
     parser.add_argument('dest')
     args = parser.parse_args()
@@ -23,6 +25,11 @@ def main():
             if op.input[i] not in names:
                 names[op.input[i]] = 'Input_{}'.format(op_counts['Input'])
                 op_counts['Input'] += 1
+                if args.verbose:
+                    print(
+                        'rename "{}" -> "{}"'.format(
+                            op.input[i], names[op.input[i]]),
+                        file=sys.stderr)
             op.input[i] = names[op.input[i]]
 
         for i in range(len(op.output)):
@@ -30,6 +37,11 @@ def main():
                 names[op.output[i]] = op_name
             else:
                 names[op.output[i]] = '{}_{}'.format(op_name, i)
+            if args.verbose:
+                print(
+                    'rename "{}" -> "{}"'.format(
+                        op.output[i], names[op.output[i]]),
+                    file=sys.stderr)
             op.output[i] = names[op.output[i]]
 
     for v in (*model.graph.input, *model.graph.output):
